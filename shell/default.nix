@@ -27,6 +27,7 @@
         name = "trotten-dev-shell";
         buildInputs = with pkgs; [
           platformio
+          curl
         ];
       };
     in
