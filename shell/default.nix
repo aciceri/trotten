@@ -6,19 +6,24 @@
   perSystem = {
     pkgs,
     config,
+    self',
     ...
   }: {
     mission-control = {
       banner = with config.mission-control; ''
-          ${pkgs.toilet}/bin/toilet --gay Trotten
-          ${config.mission-control.wrapper}/bin/${config.mission-control.wrapperName}
-          echo
-          echo "(Run '${wrapperName}' to display this menu again)"
-        '';
+        ${pkgs.toilet}/bin/toilet --gay Trotten
+        ${config.mission-control.wrapper}/bin/${config.mission-control.wrapperName}
+        echo
+        echo "(Run '${wrapperName}' to display this menu again)"
+      '';
       scripts = {
-        hello = {
-          description = "Say hello";
-          exec = "${pkgs.hello}/bin/hello";
+        fmt = {
+          description = "Format everything using treefmt";
+          exec = "${self'.formatter}/bin/treefmt";
+        };
+        build-firmware = {
+          description = "Build the firmware";
+          exec = ''nix build .#firmware && echo "Built: $(readlink ./result)"'';
         };
       };
     };
@@ -28,6 +33,7 @@
         buildInputs = with pkgs; [
           platformio
           curl
+          openscad
         ];
       };
     in
