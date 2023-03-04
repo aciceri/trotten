@@ -5,8 +5,8 @@
 #include "secrets.h"
 
 #define HOSTNAME "trotten"
-#define UP_PIN 12
-#define DOWN_PIN 13
+#define UP_PIN 12 // NodeMCU's D6
+#define DOWN_PIN 13 // NodeMCU's D7
 
 AsyncWebServer server(80);
 
