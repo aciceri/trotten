@@ -38,5 +38,10 @@
       };
     in
       config.mission-control.installToDevShell shell;
+    checks = {
+      hello = pkgs.runCommand "test-${pkgs.system}" {} ''
+        echo "ciao" > $out
+      '';
+    };
   };
 }
